@@ -2,82 +2,50 @@ import 'package:flutter/material.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
 
 void main() {
-  WidgetsFlutterBinding.ensureInitialized();
+  // WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   final assetsAudioPlayer = AssetsAudioPlayer();
 
+  void playsound(int num) {
+    assetsAudioPlayer.open(
+      Audio("assets/note$num.mp3"),
+    );
+    assetsAudioPlayer.play();
+  }
+
+  Widget buildKey(Color clr, int note) {
+    return Expanded(
+      child: Container(
+        color: clr,
+        child: TextButton(
+          onPressed: () {
+            playsound(note);
+          },
+          child: Text(""), // Empty text
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.black,
         body: SafeArea(
           child: Column(
-            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Container(
-                color: Colors.red,
-                child: TextButton(
-                  onPressed: () {
-                    assetsAudioPlayer.open(
-                      Audio("assets/note1.mp3"),
-                    );
-                    assetsAudioPlayer.play();
-                  },
-                  child: Text(
-                    "CLICK ME ",
-                    style: TextStyle(fontSize: 40),
-                  ),
-                ),
-              ),
-              Container(
-                color: Colors.orangeAccent,
-                child: TextButton(
-                  onPressed: () {
-                    assetsAudioPlayer.open(
-                      Audio("assets/note2.mp3"),
-                    );
-                    assetsAudioPlayer.play();
-                  },
-                  child: Text(
-                    "CLICK ME ",
-                    style: TextStyle(fontSize: 40),
-                  ),
-                ),
-              ),
-              Container(
-                color: Colors.yellow,
-                child: TextButton(
-                  onPressed: () {
-                    assetsAudioPlayer.open(
-                      Audio("assets/note3.mp3"),
-                    );
-                    assetsAudioPlayer.play();
-                  },
-                  child: Text(
-                    "CLICK ME ",
-                    style: TextStyle(fontSize: 40),
-                  ),
-                ),
-              ),
-              Container(
-                color: Colors.red,
-                child: TextButton(
-                  onPressed: () {
-                    assetsAudioPlayer.open(
-                      Audio("assets/note4.mp3"),
-                    );
-                    assetsAudioPlayer.play();
-                  },
-                  child: Text(
-                    "CLICK ME ",
-                    style: TextStyle(fontSize: 40),
-                  ),
-                ),
-              ),
+              buildKey(Colors.red, 1),
+              buildKey(Colors.deepOrange, 2),
+              buildKey(Colors.yellow, 3),
+              buildKey(Colors.blue, 4),
+              buildKey(Colors.green, 5),
+              buildKey(Colors.blueAccent.shade400, 6),
+              buildKey(Colors.purple, 7),
             ],
           ),
         ),
